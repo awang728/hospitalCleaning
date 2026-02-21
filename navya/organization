@@ -1,0 +1,26 @@
+cleansight/
+│
+├── backend/
+│   ├── main.py
+│   ├── database.py
+│   ├── models.py
+│   ├── schemas.py
+│   ├── routes/
+│   │     ├── cleaning.py
+│   │     ├── analytics.py
+│   │     ├── ai.py
+│   │
+│   ├── services/
+│   │     ├── gemini_service.py
+│   │     ├── snowflake_service.py
+│   │     ├── presage_service.py
+│   │
+│   ├── config.py
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── index.html
+│   ├── dashboard.html
+│   └── app.js
+│
+└── README.md
