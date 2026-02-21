@@ -1,4 +1,0 @@
-opencv-python
-ultralytics
-mediapipe==0.10.14
-numpy
