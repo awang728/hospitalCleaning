@@ -1,5 +1,5 @@
 # Welcome to CleanSight
-Created by Navya, Sireesha, Arthur, and Aurika
+Created by Navya, Sireesha, Arthur, and Aruika
 
 ## Inspiration and Ideation:
 Hospitals are meant to aid recovery and the healing process, but preventable infections can still occur due to gaps in sanitation compliance. A single missed surface in a patient room can allow pathogens to spread, putting vulnerable patients at serious risk.
