@@ -1,0 +1,12 @@
+flask>=3.0.0
+flask-cors>=4.0.0
+requests>=2.31.0
+numpy>=1.26.0
+python-dotenv>=1.0.0
+grpcio>=1.62.0
+grpcio-tools>=1.62.0
+grpcio-reflection>=1.62.0   # for proto discovery
+gunicorn>=21.2.0             # production WSGI server on Vultr
+sphinx-ai-cli
+jupyter-server
+ipykernel
