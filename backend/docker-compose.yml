@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  vectorai:
+    image: williamimoh/actian-vectorai-db:1.0b
+    ports:
+      - "50051:50051"
+    volumes:
+      - vectorai_data:/data     # persist embeddings across restarts
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "50051"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPHINX_API_KEY=${SPHINX_API_KEY}
+      - SPHINX_BASE_URL=${SPHINX_BASE_URL}
+      - VECTORAI_HOST=vectorai   # Docker service name = hostname
+      - VECTORAI_PORT=50051
+      - VECTORAI_COLLECTION=cleansight_sessions
+      - PORT=8080
+    depends_on:
+      vectorai:
+        condition: service_healthy
+    volumes:
+      - .:/app                   # hot-reload in dev
+
+volumes:
+  vectorai_data:

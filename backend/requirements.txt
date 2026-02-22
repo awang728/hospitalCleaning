@@ -1,0 +1,24 @@
+fastapi==0.115.8
+uvicorn[standard]==0.30.6
+SQLAlchemy==2.0.36
+psycopg2-binary==2.9.10
+pydantic==2.10.6
+python-dotenv==1.0.1
+numpy==2.2.2
+requests
+jinja2
+
+# Camera / CV
+opencv-python
+ultralytics
+mediapipe==0.10.14
+
+flask>=3.0.0
+flask-cors>=4.0.0
+grpcio>=1.62.0
+grpcio-tools>=1.62.0
+grpcio-reflection>=1.62.0
+gunicorn>=21.2.0
+sphinx-ai-cli
+jupyter-server
+ipykernel

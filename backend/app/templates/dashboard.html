@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CleanSight - Hygiene Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f8fafc;
+        --card: #ffffff;
+        --text: #0f172a;
+        --accent: #3b82f6;
+        --border: #e2e8f0;
+        --success: #10b981;
+        --warning: #f59e0b;
+        --gray: #64748b;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Inter", sans-serif;
+        min-height: 100vh;
+      }
+      header {
+        background: white;
+        border-bottom: 1px solid var(--border);
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      }
+      .logo {
+        font-size: 1.9rem;
+        font-weight: 700;
+        color: var(--accent);
+      }
+      .tabs {
+        display: flex;
+        gap: 1.25rem;
+      }
+      .tab {
+        padding: 0.7rem 1.4rem;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.2s;
+        color: var(--gray);
+      }
+      .tab.active {
+        background: var(--accent);
+        color: white;
+      }
+      .tab:hover:not(.active) {
+        background: rgba(59, 130, 246, 0.08);
+        color: var(--accent);
+      }
+      .container {
+        display: flex;
+        gap: 2rem;
+        padding: 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      .main-content {
+        flex: 3;
+      }
+      .sidebar {
+        flex: 1;
+        min-width: 300px;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 1.8rem;
+        margin-bottom: 1.8rem;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+      }
+      h2 {
+        font-size: 1.35rem;
+        margin-bottom: 1rem;
+        color: var(--accent);
+      }
+      .stat {
+        font-size: 1.15rem;
+        margin: 0.8rem 0;
+      }
+      .success {
+        color: var(--success);
+        font-weight: 600;
+      }
+      .warning {
+        color: var(--warning);
+        font-weight: 600;
+      }
+      .screen {
+        display: none;
+      }
+      .screen.active {
+        display: block;
+      }
+      .hero {
+        background: linear-gradient(135deg, #f0f9ff, #dbeafe, #bfdbfe);
+        padding: 6rem 4rem 5rem;
+        text-align: center;
+        border-radius: 0 0 32px 32px;
+        box-shadow: 0 10px 30px rgba(59, 130, 246, 0.08);
+        margin-bottom: 2rem;
+      }
+      .hero-logo {
+        font-size: 6rem;
+        font-weight: 800;
+        color: var(--accent);
+        margin-bottom: 2rem;
+        letter-spacing: -2px;
+      }
+      .demo-badge {
+        display: inline-block;
+        background: var(--accent);
+        color: white;
+        padding: 0.8rem 2.5rem;
+        border-radius: 50px;
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-top: 1.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
+      }
+      .demo-badge:hover {
+        background: #2563eb;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(59, 130, 246, 0.35);
+      }
+      .centered-section {
+        margin: 3rem auto;
+        max-width: 900px;
+        text-align: center;
+      }
+      .centered-section ul {
+        list-style: none;
+        font-size: 1.3rem;
+        color: #475569;
+        line-height: 2;
+      }
+      .photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin: 3rem auto;
+        max-width: 1100px;
+      }
+      .photo-card {
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+      }
+      .photo-card:hover {
+        transform: translateY(-8px);
+      }
+      .photo-card img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+        display: block;
+      }
+      .photo-caption {
+        padding: 1rem;
+        font-size: 1rem;
+        color: var(--gray);
+        text-align: center;
+        min-height: 60px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .btn {
+        padding: 0.7rem 2rem;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .btn-start {
+        background: #10b981;
+      }
+      .btn-start:hover {
+        background: #059669;
+        transform: translateY(-1px);
+      }
+      .btn-stop {
+        background: #ef4444;
+      }
+      .btn-stop:hover {
+        background: #dc2626;
+        transform: translateY(-1px);
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="logo">CleanSight</div>
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('home')">Home</div>
+        <div class="tab" onclick="switchTab('cleansight')">CleanSight</div>
+        <div class="tab" onclick="switchTab('analytics')">
+          Data &amp; Analytics
+        </div>
+      </div>
+    </header>
+
+    <!-- Home + CleanSight use sidebar layout -->
+    <div class="container" id="main-container">
+      <div class="main-content">
+        <!-- Home Tab -->
+        <div id="home" class="screen active">
+          <div class="hero">
+            <div class="hero-logo">CleanSight</div>
+            <div
+              style="
+                font-size: 4.5rem;
+                font-weight: 800;
+                color: #dc2626;
+                margin-bottom: 1rem;
+                line-height: 1;
+              "
+            >
+              1.8 million
+            </div>
+            <p
+              style="
+                font-size: 1.8rem;
+                color: #1e293b;
+                margin-bottom: 2rem;
+                max-width: 900px;
+                margin-left: auto;
+                margin-right: auto;
+              "
+            >
+              people die every year from hygiene-related diseases<br />
+              <span style="font-size: 1.4rem; color: #64748b; font-weight: 500"
+                >Most are preventable with consistent hand hygiene and surface
+                cleaning.</span
+              >
+            </p>
+            <div class="centered-section">
+              <h2
+                style="font-size: 2.2rem; color: #1e293b; margin-bottom: 1.5rem"
+              >
+                The Problem
+              </h2>
+              <ul>
+                <li>- Inconsistent cleaning of high-touch surfaces</li>
+                <li>- No real-time feedback during hospital sanitation</li>
+                <li>- Lack of compliance monitoring and data</li>
+                <li>
+                  - Preventable infections spreading in healthcare settings
+                </li>
+              </ul>
+            </div>
+            <div
+              style="
+                font-size: 1.8rem;
+                font-weight: 600;
+                color: var(--accent);
+                margin: 4rem auto 2rem;
+                max-width: 900px;
+              "
+            >
+              CleanSight delivers real-time surface coverage tracking,
+              behavioral analytics, and AI insights to improve hygiene
+              compliance and save lives.
+            </div>
+            <div
+              style="margin: 4rem auto; max-width: 1100px; text-align: center"
+            >
+              <h2
+                style="font-size: 2.2rem; color: #1e293b; margin-bottom: 2rem"
+              >
+                Real Impact
+              </h2>
+              <div
+                style="
+                  display: grid;
+                  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                  gap: 2rem;
+                "
+              >
+                <div>
+                  <div
+                    style="
+                      font-size: 3.5rem;
+                      font-weight: 700;
+                      color: var(--success);
+                    "
+                  >
+                    20-40%
+                  </div>
+                  <p style="font-size: 1.2rem; color: #475569">
+                    potential reduction in HAIs with consistent high-touch
+                    cleaning
+                  </p>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-size: 3.5rem;
+                      font-weight: 700;
+                      color: var(--success);
+                    "
+                  >
+                    Millions
+                  </div>
+                  <p style="font-size: 1.2rem; color: #475569">
+                    of preventable deaths addressed through better hygiene
+                    systems
+                  </p>
+                </div>
+                <div>
+                  <div
+                    style="
+                      font-size: 3.5rem;
+                      font-weight: 700;
+                      color: var(--success);
+                    "
+                  >
+                    Real-Time
+                  </div>
+                  <p style="font-size: 1.2rem; color: #475569">
+                    feedback to drive behavior change and improve outcomes
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div style="margin: 4rem auto; text-align: center">
+              <h2
+                style="font-size: 2.2rem; color: #1e293b; margin-bottom: 2rem"
+              >
+                CleanSight in Action
+              </h2>
+              <div class="photo-grid">
+                <div class="photo-card">
+                  <img
+                    src="https://i.postimg.cc/N2xf6TtJ/image.jpg"
+                    alt="Healthcare worker handwashing"
+                  />
+                  <div class="photo-caption">
+                    Hand hygiene compliance in hospital settings
+                  </div>
+                </div>
+                <div class="photo-card">
+                  <img
+                    src="https://i.postimg.cc/rDsYxrL6/image.jpg"
+                    alt="Nurse cleaning medical equipment"
+                  />
+                  <div class="photo-caption">
+                    Disinfecting high-touch surfaces
+                  </div>
+                </div>
+                <div class="photo-card">
+                  <img
+                    src="https://i.postimg.cc/k2HYcg7j/image.jpg"
+                    alt="Staff sanitizing exam bed"
+                  />
+                  <div class="photo-caption">
+                    Thorough bed and rail cleaning
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              style="
+                font-size: 2rem;
+                font-weight: 600;
+                color: var(--text);
+                text-align: center;
+                margin: 5rem auto 3rem;
+                max-width: 900px;
+                line-height: 1.4;
+              "
+            >
+              Preventable infections should not exist in 2026.<br />
+              <span style="color: var(--accent)"
+                >We are building the tools to eliminate them.</span
+              >
+            </div>
+            <div style="text-align: center; margin-bottom: 4rem">
+              <div class="demo-badge" onclick="switchTab('cleansight')">
+                Start CleanSight
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- CleanSight Tab -->
+        <div id="cleansight" class="screen">
+          <div class="card">
+            <h2>CleanSight - Live Surface Monitoring</h2>
+            <img
+              src="/video_feed"
+              style="
+                width: 100%;
+                height: 580px;
+                object-fit: cover;
+                border-radius: 12px;
+              "
+              alt="Live Camera Feed"
+            />
+            <div
+              style="
+                margin-top: 1.5rem;
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                flex-wrap: wrap;
+              "
+            >
+              <button class="btn btn-start" onclick="startSession()">
+                Start Session
+              </button>
+              <button class="btn btn-stop" onclick="stopSession()">
+                Stop and Save
+              </button>
+              <span
+                id="session-status"
+                style="color: var(--gray); font-size: 0.95rem"
+              ></span>
+            </div>
+            <div style="margin-top: 1.2rem">
+              <p class="stat">
+                Current Coverage:
+                <span id="live-coverage" class="success">0%</span>
+              </p>
+              <p class="stat">
+                High-touch zones completed:
+                <span id="live-hightouch" class="warning">Not started</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sidebar - only on cleansight tab -->
+      <div class="sidebar" id="stats-sidebar" style="display: none">
+        <div class="card">
+          <h2>Quick Summary</h2>
+          <p class="stat">
+            Average Coverage:
+            <span id="avg-coverage" class="success">Loading...</span>
+          </p>
+          <p class="stat">
+            Total Sessions: <span id="total-sessions">Loading...</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analytics Tab — full width outside container so iframe fills the whole page -->
+    <div
+      id="analytics"
+      class="screen"
+      style="position: fixed; top: 73px; left: 0; right: 0; bottom: 0"
+    >
+      <iframe
+        src="/cleansight"
+        style="width: 100%; height: 100%; border: none; display: block"
+      ></iframe>
+    </div>
+
+    <script>
+      function switchTab(tabId) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(tabId).classList.add("active");
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        const activeTab = Array.from(document.querySelectorAll(".tab")).find(
+          (t) =>
+            t.getAttribute("onclick") &&
+            t.getAttribute("onclick").includes("'" + tabId + "'"),
+        );
+        if (activeTab) activeTab.classList.add("active");
+        document.getElementById("stats-sidebar").style.display =
+          tabId === "cleansight" ? "block" : "none";
+        document.getElementById("main-container").style.display =
+          tabId === "analytics" ? "none" : "flex";
+      }
+
+      async function loadSummary() {
+        try {
+          const res = await fetch("/analytics/summary");
+          if (!res.ok) return;
+          const data = await res.json();
+          document.getElementById("avg-coverage").innerText =
+            (data.average_coverage_percent != null
+              ? data.average_coverage_percent.toFixed(1)
+              : "N/A") + "%";
+          document.getElementById("total-sessions").innerText =
+            data.total_sessions || 0;
+        } catch (e) {
+          console.error("Failed to load summary:", e);
+        }
+      }
+
+      async function loadLiveStats() {
+        try {
+          const res = await fetch("/analytics/live");
+          if (!res.ok) return;
+          const data = await res.json();
+          document.getElementById("live-coverage").innerText =
+            data.coverage_percent + "%";
+          document.getElementById("live-hightouch").innerText =
+            data.high_touch_done ? "Yes" : "In progress";
+          const status = document.getElementById("session-status");
+          if (data.recording && status.innerText === "")
+            status.innerText = "🔴 Recording...";
+        } catch (e) {
+          console.error("Live stats error:", e);
+        }
+      }
+
+      async function startSession() {
+        const status = document.getElementById("session-status");
+        status.innerText = "Starting...";
+        try {
+          const res = await fetch("/camera/start", { method: "POST" });
+          const data = await res.json();
+          status.innerText = data.ok
+            ? "🔴 Recording..."
+            : "Could not start: " + (data.reason || "unknown");
+        } catch (e) {
+          status.innerText = "Error: " + e.message;
+        }
+      }
+
+      async function stopSession() {
+        const status = document.getElementById("session-status");
+        status.innerText = "Saving...";
+        try {
+          const res = await fetch("/camera/stop", { method: "POST" });
+          const data = await res.json();
+          if (data.ok) {
+            status.innerText = "✅ Session saved! Ready for next session.";
+            document.getElementById("live-coverage").innerText = "0%";
+            document.getElementById("live-hightouch").innerText = "Not started";
+            loadSummary();
+          } else {
+            status.innerText = "Nothing to stop.";
+          }
+        } catch (e) {
+          status.innerText = "Error: " + e.message;
+        }
+      }
+
+      window.onload = function () {
+        switchTab("home");
+        loadSummary();
+        loadLiveStats();
+        setInterval(loadLiveStats, 2000);
+        setInterval(loadSummary, 5000);
+      };
+    </script>
+  </body>
+</html>
