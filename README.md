@@ -34,44 +34,83 @@ Built for Hacklytics 2026.
 ## Project Structure
 
 hacklytics26/
-├── backend/                    # (your main backend folder)
+
+├── backend/                   # (your main backend folder)
+
 │   ├── __pycache__/            # Python cache (safe to .gitignore)
+
 │   │   ├── database.cpython-*.pyc
+
 │   │   ├── main.cpython-*.pyc
+
 │   │   ├── routes.cpython-*.pyc
+
 │   │   └── ...
+
 │   │
+
 │   ├── routes/                 # API route files
+
 │   │   ├── __pycache__/
+
 │   │   │   ├── __init__.cpython-*.pyc
+
 │   │   │   ├── analytics.cpython-*.pyc
+
 │   │   │   ├── cleaning.cpython-*.pyc
+
 │   │   │   └── ai.cpython-*.pyc
+
 │   │   │
+
 │   │   ├── __init__.py
+
 │   │   ├── ai.py
+
 │   │   ├── analytics.py
+
 │   │   └── cleaning.py
+
 │   │
+
 │   ├── database.py             # DB setup (session, engine)
+
 │   ├── main.py                 # FastAPI app entry
+
 │   ├── models.py               # SQLAlchemy models
+
 │   ├── init_db.py              # Creates tables
+
 │   ├── seed_data.py            # (if you have demo data script)
+
 │   ├── services.py             # (any service files)
+
 │   ├── snowflake_service.py    # (if using Snowflake)
+
 │   ├── .DS_Store               # macOS junk (gitignore)
+
 │   └── cleansight.db           # SQLite database file
+
 │
+
 ├── frontend/                   # Frontend files
+
 │   ├── app.js                  # JavaScript logic
+
 │   ├── dashboard.html          # Main dashboard
+
 │   └── home.html               # (if you have a separate home page)
+
 │
+
 ├── .DS_Store                   # macOS junk (gitignore)
+
 ├── requirement.txt             # Dependencies (typo? should be requirements.txt)
+
 ├── README.md                   # This file
+
 └── cleansight.html             # (possible duplicate/old dashboard?)
+
 
 
 ## Setup & Run
